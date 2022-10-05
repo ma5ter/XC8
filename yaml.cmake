@@ -40,14 +40,14 @@ else ()
                 unset(suffix)
 
                 set(index 1)
+                math(EXPR last_index "${size} - 1")
                 while (${index} LESS ${size})
                     list(GET split ${index} arg)
                     if (${arg} STREQUAL "-std=89" OR ${arg} STREQUAL "-std=90")
                         # force clang (c99) verbose output
                     elseif (${arg} STREQUAL "-o")
                         increment(index)
-                    elseif (${arg} STREQUAL "-c")
-                        increment(index)
+                    elseif (${index} EQUAL ${last_index})
                         # get default source extension
                         list(GET split ${index} arg)
                         string(REGEX MATCH "\\.(c|cpp)$" suffix "${arg}")
