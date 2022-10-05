@@ -1,0 +1,12 @@
+# This file is used to store compiler information and is copied down into try
+# compile directories so that try compiles do not need to re-determine and test the LANG
+# used by CMakeDetermine(LANG)Compiler.cmake
+
+set(CMAKE_C_COMPILER "@CMAKE_C_COMPILER@")
+set(CMAKE_C_COMPILER_ID "@CMAKE_C_COMPILER_ID@")
+set(CMAKE_C_FLAGS "@CMAKE_C_FLAGS@")
+set(CMAKE_C_FLAGS_INIT "@CMAKE_C_FLAGS_INIT@")
+set(CMAKE_C_OUTPUT_EXTENSION "@CMAKE_C_OUTPUT_EXTENSION@")
+set(CMAKE_C_OUTPUT_EXTENSION_REPLACE "@CMAKE_C_OUTPUT_EXTENSION_REPLACE@")
+set(CMAKE_C_SOURCE_FILE_EXTENSIONS "@CMAKE_C_SOURCE_FILE_EXTENSIONS@")
+set(CMAKE_C_LINKER_PREFERENCE "@CMAKE_C_LINKER_PREFERENCE@")

@@ -1,0 +1,5 @@
+macro(debug_position file line)
+    if (EMBEDDED_DEBUG)
+        message("*** ${file}:${line} ***")
+    endif()
+endmacro()
