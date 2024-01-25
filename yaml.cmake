@@ -43,8 +43,8 @@ else ()
                 math(EXPR last_index "${size} - 1")
                 while (${index} LESS ${size})
                     list(GET split ${index} arg)
-                    if (${arg} STREQUAL "-std=89" OR ${arg} STREQUAL "-std=90")
-                        # force clang (c99) verbose output
+                    if (${arg} STREQUAL "-std=c89" OR ${arg} STREQUAL "-std=c90")
+                        set(std90 TRUE)
                     elseif (${arg} STREQUAL "-o")
                         increment(index)
                     elseif (${index} EQUAL ${last_index})
@@ -68,7 +68,7 @@ else ()
                         message(WARNING "Compile command for the first source file in the project\n${command}\ndoesn't contain a C/C++ source")
                         set(suffix ".c")
                     endif ()
-                    # options to get verbose output
+                    # options to get verbose output, note that '-std=c99' is mandatory for any standard
                     list(APPEND args -std=c99 -v -E -c "dummy${suffix}")
                     # generate temporary source file
                     file(WRITE "dummy${suffix}" "int main() { return 0; }\n")
@@ -131,6 +131,10 @@ else ()
                                         string(REGEX REPLACE "^-isystem" "" include ${arg})
                                         file(TO_CMAKE_PATH ${include} include)
                                         string(REPLACE "//" "/" include ${include})
+										# rewrite c99 directory if using lower standard
+										if (${std90} AND ${include} MATCHES "/include/c99$")
+											string(REPLACE "/c99" "/c90" include ${include})
+										endif()
                                         # copy includes to avoid extensive [and recursive] indexing
                                         string(REGEX MATCH "/(include(/.+)?)$" dir "${include}")
                                         set(dir ${CMAKE_MATCH_1})
