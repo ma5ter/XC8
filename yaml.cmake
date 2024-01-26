@@ -39,6 +39,7 @@ else ()
                 unset(args)
                 unset(suffix)
 
+                set(std90 FALSE)
                 set(index 1)
                 math(EXPR last_index "${size} - 1")
                 while (${index} LESS ${size})
@@ -131,10 +132,10 @@ else ()
                                         string(REGEX REPLACE "^-isystem" "" include ${arg})
                                         file(TO_CMAKE_PATH ${include} include)
                                         string(REPLACE "//" "/" include ${include})
-										# rewrite c99 directory if using lower standard
-										if (${std90} AND ${include} MATCHES "/include/c99$")
-											string(REPLACE "/c99" "/c90" include ${include})
-										endif()
+                                        # rewrite c99 directory if using lower standard
+                                        if (${std90} AND ${include} MATCHES "/include/c99$")
+                                            string(REPLACE "/c99" "/c90" include ${include})
+                                        endif()
                                         # copy includes to avoid extensive [and recursive] indexing
                                         string(REGEX MATCH "/(include(/.+)?)$" dir "${include}")
                                         set(dir ${CMAKE_MATCH_1})
